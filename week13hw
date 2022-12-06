@@ -1,0 +1,5 @@
+for k = 0:0.0001:3
+    y = dirac(k,0.032,1e5,1e2);
+    hold on 
+    plot(k,y)
+end
