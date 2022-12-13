@@ -1,0 +1,7 @@
+K = linspace(0,1.4,1e4);
+Y0 = zeros(length(K),1);
+parfor k = 1:length(K)
+    Y0(k) = diracFunc(K(k),0.032,1e6,1e2);
+    hold on 
+end
+solution = K(sign(Y0(1:1e4-1))~=sign(Y0(2:1e4))&&~isnan(Y0));
