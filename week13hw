@@ -1,5 +1,7 @@
-for k = 0:0.0001:3
-    y = dirac(k,0.032,1e5,1e2);
+K = linspace(2,3,1e4);
+Y = zeros(length(K),1);
+for k = 1:length(K)
+    Y(k) = diracFunc(K(k),0.032,1e5,1e2);
     hold on 
-    plot(k,y)
 end
+plot(K,Y)
