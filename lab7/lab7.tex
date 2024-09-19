@@ -1,0 +1,379 @@
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and export to LaTeX again.
+
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{epstopdf}
+\usepackage[table]{xcolor}
+\usepackage{matlab}
+\usepackage[paperheight=795pt,paperwidth=614pt,top=72pt,bottom=72pt,right=72pt,left=72pt,heightrounded]{geometry}
+
+\sloppy
+\epstopdfsetup{outdir=./}
+\graphicspath{ {./lab7_media/} }
+
+\begin{document}
+
+\begin{matlabcode}
+syms a1 a2 b1 b2
+ieqn = (((1+a1)^2*(1-b1^2-b2^2)/(1+b1)^2/(1-a1^2-a2^2)-2*(1-b1*a1-b2*a2)*(1+a1)/(1+b1)/(1-a1^2-a2^2)+1))*(1+b1)^2*(1-a1^2-a2^2)<=0
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ieqn = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+-{{\left(b_1 +1\right)}}^2 \,{\left(\frac{{{\left(a_1 +1\right)}}^2 \,{\left({b_1 }^2 +{b_2 }^2 -1\right)}}{{{\left(b_1 +1\right)}}^2 \,\sigma_1 }-\frac{{\left(a_1 +1\right)}\,{\left(2\,a_1 \,b_1 +2\,a_2 \,b_2 -2\right)}}{{\left(b_1 +1\right)}\,\sigma_1 }+1\right)}\,\sigma_1 \le 0\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 ={a_1 }^2 +{a_2 }^2 -1
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+cond1 = (1-b1^2-b2^2)<0;
+cond2 = (1-a1^2-a2^2)<0
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+cond2 = 
+
+\hskip1em $\displaystyle -{a_1 }^2 -{a_2 }^2 +1<0$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+assume(b1^2+b2^2<1)
+assumeAlso(a1^2+a2^2<1)
+assumeAlso(b1+1>0)
+assumptions
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ans = 
+
+\hskip1em $\displaystyle \left(\begin{array}{ccc}
+0<b_1 +1 & {a_1 }^2 +{a_2 }^2 <1 & {b_1 }^2 +{b_2 }^2 <1
+\end{array}\right)$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+
+assume(b1^2+b2^2<1)
+assumeAlso(a1^2+a2^2<1)
+assumeAlso(b1+1>0)
+assumptions
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ans = 
+
+\hskip1em $\displaystyle \left(\begin{array}{ccc}
+0<b_1 +1 & {a_1 }^2 +{a_2 }^2 <1 & {b_1 }^2 +{b_2 }^2 <1
+\end{array}\right)$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+simplify(ieqn)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ans = 
+
+\hskip1em $\displaystyle -{{\left(a_2 -b_2 -a_1 \,b_2 +a_2 \,b_1 \right)}}^2 \le 0$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+assume([a1 a2 b1 b2],"clear")
+\end{matlabcode}
+
+
+\begin{matlabcode}
+clc,clear
+syms rho positive real
+syms v1 v2 v3 B1 B2 B3 real
+v = [v1 v2 v3];
+B = [B1 B2 B3];
+assume(norm(v)<1)
+D = rho / sqrt(1 - norm(v)^2)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+D = 
+
+\hskip1em $\displaystyle \frac{\rho }{\sqrt{-{\left|v_1 \right|}^2 -{\left|v_2 \right|}^2 -{\left|v_3 \right|}^2 +1}}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+m = rho*v / (1 - norm(v)^2) + norm(B)^2*v - (v*B.')*B
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+m = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+\left(\begin{array}{ccc}
+v_1 \,\sigma_2 -B_1 \,{\left(B_1 \,v_1 +B_2 \,v_2 +B_3 \,v_3 \right)}-\frac{\rho \,v_1 }{\sigma_1 } & v_2 \,\sigma_2 -B_2 \,{\left(B_1 \,v_1 +B_2 \,v_2 +B_3 \,v_3 \right)}-\frac{\rho \,v_2 }{\sigma_1 } & v_3 \,\sigma_2 -B_3 \,{\left(B_1 \,v_1 +B_2 \,v_2 +B_3 \,v_3 \right)}-\frac{\rho \,v_3 }{\sigma_1 }
+\end{array}\right)\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 ={\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 -1\\
+\mathrm{}\\
+\;\;\sigma_2 ={\left|B_1 \right|}^2 +{\left|B_2 \right|}^2 +{\left|B_3 \right|}^2 
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+E = rho / (1 - norm(v)^2) + (1+norm(v)^2)*norm(B)^2/2 - 1/2 * (v*B.')^2
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+E = 
+
+\hskip1em $\displaystyle \frac{{\left({\left|B_1 \right|}^2 +{\left|B_2 \right|}^2 +{\left|B_3 \right|}^2 \right)}\,{\left({\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 +1\right)}}{2}-\frac{\rho }{{\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 -1}-\frac{{{\left(B_1 \,v_1 +B_2 \,v_2 +B_3 \,v_3 \right)}}^2 }{2}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+U = [D,m,B,E]
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+U = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+\left(\begin{array}{cccccccc}
+\frac{\rho }{\sqrt{-{\left|v_1 \right|}^2 -{\left|v_2 \right|}^2 -{\left|v_3 \right|}^2 +1}} & v_1 \,\sigma_2 -B_1 \,\sigma_3 -\frac{\rho \,v_1 }{\sigma_1 } & v_2 \,\sigma_2 -B_2 \,\sigma_3 -\frac{\rho \,v_2 }{\sigma_1 } & v_3 \,\sigma_2 -B_3 \,\sigma_3 -\frac{\rho \,v_3 }{\sigma_1 } & B_1  & B_2  & B_3  & \frac{\sigma_2 \,{\left({\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 +1\right)}}{2}-\frac{\rho }{\sigma_1 }-\frac{{\sigma_3 }^2 }{2}
+\end{array}\right)\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 ={\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 -1\\
+\mathrm{}\\
+\;\;\sigma_2 ={\left|B_1 \right|}^2 +{\left|B_2 \right|}^2 +{\left|B_3 \right|}^2 \\
+\mathrm{}\\
+\;\;\sigma_3 =B_1 \,v_1 +B_2 \,v_2 +B_3 \,v_3 
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+syms rho_star positive real
+syms  v_star1 v_star2 v_star3 B_star1 B_star2 B_star3 real
+v_star = [v_star1 v_star2 v_star3]
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+v\_star = 
+
+\hskip1em $\displaystyle \left(\begin{array}{ccc}
+v_{\textrm{star1}}  & v_{\textrm{star2}}  & v_{\textrm{star3}} 
+\end{array}\right)$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+B_star = [B_star1 B_star2 B_star3]
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+B\_star = 
+
+\hskip1em $\displaystyle \left(\begin{array}{ccc}
+B_{\textrm{star1}}  & B_{\textrm{star2}}  & B_{\textrm{star3}} 
+\end{array}\right)$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+assume(abs(v_star)<1)
+n_star = [- sqrt(1 - norm(v_star)^2) ,-v_star, -(1 - norm(v_star)^2)*B_star - (v_star*B_star.')*B_star, 1]
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+n\_star = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+\left(\begin{array}{cccccccc}
+-\sqrt{-{\left|v_{\textrm{star1}} \right|}^2 -{\left|v_{\textrm{star2}} \right|}^2 -{\left|v_{\textrm{star3}} \right|}^2 +1} & -v_{\textrm{star1}}  & -v_{\textrm{star2}}  & -v_{\textrm{star3}}  & B_{\textrm{star1}} \,\sigma_1 -B_{\textrm{star1}} \,{\left(B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \right)} & B_{\textrm{star2}} \,\sigma_1 -B_{\textrm{star2}} \,{\left(B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \right)} & B_{\textrm{star3}} \,\sigma_1 -B_{\textrm{star3}} \,{\left(B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \right)} & 1
+\end{array}\right)\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 ={\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 -1
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+D_star = rho_star / sqrt(1 - norm(v_star)^2)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+D\_star = 
+
+\hskip1em $\displaystyle \frac{\rho_{\textrm{star}} }{\sqrt{-{\left|v_{\textrm{star1}} \right|}^2 -{\left|v_{\textrm{star2}} \right|}^2 -{\left|v_{\textrm{star3}} \right|}^2 +1}}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+m_star = rho_star*v_star / (1 - norm(v_star)^2) + norm(B_star)^2*v_star - (v_star*B_star.')*B_star
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+m\_star = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+\left(\begin{array}{ccc}
+v_{\textrm{star1}} \,\sigma_2 -B_{\textrm{star1}} \,{\left(B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \right)}-\frac{\rho_{\textrm{star}} \,v_{\textrm{star1}} }{\sigma_1 } & v_{\textrm{star2}} \,\sigma_2 -B_{\textrm{star2}} \,{\left(B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \right)}-\frac{\rho_{\textrm{star}} \,v_{\textrm{star2}} }{\sigma_1 } & v_{\textrm{star3}} \,\sigma_2 -B_{\textrm{star3}} \,{\left(B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \right)}-\frac{\rho_{\textrm{star}} \,v_{\textrm{star3}} }{\sigma_1 }
+\end{array}\right)\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 ={\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 -1\\
+\mathrm{}\\
+\;\;\sigma_2 ={\left|B_{\textrm{star1}} \right|}^2 +{\left|B_{\textrm{star2}} \right|}^2 +{\left|B_{\textrm{star3}} \right|}^2 
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+E_star = rho_star / (1 - norm(v_star)^2) + (1+norm(v_star)^2)*norm(B_star)^2/2 - 1/2 * (v_star*B_star.')^2
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+E\_star = 
+
+\hskip1em $\displaystyle \frac{{\left({\left|B_{\textrm{star1}} \right|}^2 +{\left|B_{\textrm{star2}} \right|}^2 +{\left|B_{\textrm{star3}} \right|}^2 \right)}\,{\left({\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 +1\right)}}{2}-\frac{\rho_{\textrm{star}} }{{\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 -1}-\frac{{{\left(B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \right)}}^2 }{2}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+U_star = [D_star, m_star, B_star, E_star]
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+U\_star = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+\left(\begin{array}{cccccccc}
+\frac{\rho_{\textrm{star}} }{\sqrt{-{\left|v_{\textrm{star1}} \right|}^2 -{\left|v_{\textrm{star2}} \right|}^2 -{\left|v_{\textrm{star3}} \right|}^2 +1}} & v_{\textrm{star1}} \,\sigma_2 -B_{\textrm{star1}} \,\sigma_3 -\frac{\rho_{\textrm{star}} \,v_{\textrm{star1}} }{\sigma_1 } & v_{\textrm{star2}} \,\sigma_2 -B_{\textrm{star2}} \,\sigma_3 -\frac{\rho_{\textrm{star}} \,v_{\textrm{star2}} }{\sigma_1 } & v_{\textrm{star3}} \,\sigma_2 -B_{\textrm{star3}} \,\sigma_3 -\frac{\rho_{\textrm{star}} \,v_{\textrm{star3}} }{\sigma_1 } & B_{\textrm{star1}}  & B_{\textrm{star2}}  & B_{\textrm{star3}}  & \frac{\sigma_2 \,{\left({\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 +1\right)}}{2}-\frac{\rho_{\textrm{star}} }{\sigma_1 }-\frac{{\sigma_3 }^2 }{2}
+\end{array}\right)\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 ={\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 -1\\
+\mathrm{}\\
+\;\;\sigma_2 ={\left|B_{\textrm{star1}} \right|}^2 +{\left|B_{\textrm{star2}} \right|}^2 +{\left|B_{\textrm{star3}} \right|}^2 \\
+\mathrm{}\\
+\;\;\sigma_3 =B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} 
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+F = (U-U_star)*n_star.'
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+F = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+\frac{{\sigma_5 }^2 }{2}-\frac{{\sigma_6 }^2 }{2}-\frac{\rho }{\sigma_2 }+\frac{\rho_{\textrm{star}} }{\sigma_1 }-v_{\textrm{star1}} \,{\left(v_1 \,\sigma_4 -v_{\textrm{star1}} \,\sigma_3 -B_1 \,\sigma_6 +B_{\textrm{star1}} \,\sigma_5 -\frac{\rho \,v_1 }{\sigma_2 }+\frac{\rho_{\textrm{star}} \,v_{\textrm{star1}} }{\sigma_1 }\right)}-v_{\textrm{star2}} \,{\left(v_2 \,\sigma_4 -v_{\textrm{star2}} \,\sigma_3 -B_2 \,\sigma_6 +B_{\textrm{star2}} \,\sigma_5 -\frac{\rho \,v_2 }{\sigma_2 }+\frac{\rho_{\textrm{star}} \,v_{\textrm{star2}} }{\sigma_1 }\right)}-v_{\textrm{star3}} \,{\left(v_3 \,\sigma_4 -v_{\textrm{star3}} \,\sigma_3 -B_3 \,\sigma_6 +B_{\textrm{star3}} \,\sigma_5 -\frac{\rho \,v_3 }{\sigma_2 }+\frac{\rho_{\textrm{star}} \,v_{\textrm{star3}} }{\sigma_1 }\right)}+\frac{\sigma_4 \,{\left({\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 +1\right)}}{2}-\frac{\sigma_3 \,{\left({\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 +1\right)}}{2}-{\left(\frac{\rho }{\sqrt{-{\left|v_1 \right|}^2 -{\left|v_2 \right|}^2 -{\left|v_3 \right|}^2 +1}}-\frac{\rho_{\textrm{star}} }{\sigma_7 }\right)}\,\sigma_7 -{\left(B_1 -B_{\textrm{star1}} \right)}\,{\left(B_{\textrm{star1}} \,\sigma_5 -B_{\textrm{star1}} \,\sigma_1 \right)}-{\left(B_2 -B_{\textrm{star2}} \right)}\,{\left(B_{\textrm{star2}} \,\sigma_5 -B_{\textrm{star2}} \,\sigma_1 \right)}-{\left(B_3 -B_{\textrm{star3}} \right)}\,{\left(B_{\textrm{star3}} \,\sigma_5 -B_{\textrm{star3}} \,\sigma_1 \right)}\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 ={\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 -1\\
+\mathrm{}\\
+\;\;\sigma_2 ={\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 -1\\
+\mathrm{}\\
+\;\;\sigma_3 ={\left|B_{\textrm{star1}} \right|}^2 +{\left|B_{\textrm{star2}} \right|}^2 +{\left|B_{\textrm{star3}} \right|}^2 \\
+\mathrm{}\\
+\;\;\sigma_4 ={\left|B_1 \right|}^2 +{\left|B_2 \right|}^2 +{\left|B_3 \right|}^2 \\
+\mathrm{}\\
+\;\;\sigma_5 =B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \\
+\mathrm{}\\
+\;\;\sigma_6 =B_1 \,v_1 +B_2 \,v_2 +B_3 \,v_3 \\
+\mathrm{}\\
+\;\;\sigma_7 =\sqrt{-{\left|v_{\textrm{star1}} \right|}^2 -{\left|v_{\textrm{star2}} \right|}^2 -{\left|v_{\textrm{star3}} \right|}^2 +1}
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+diff(F,rho)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ans = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+\frac{v_1 \,v_{\textrm{star1}} }{\sigma_1 }-\frac{\sqrt{-{\left|v_{\textrm{star1}} \right|}^2 -{\left|v_{\textrm{star2}} \right|}^2 -{\left|v_{\textrm{star3}} \right|}^2 +1}}{\sqrt{-{\left|v_1 \right|}^2 -{\left|v_2 \right|}^2 -{\left|v_3 \right|}^2 +1}}-\frac{1}{\sigma_1 }+\frac{v_2 \,v_{\textrm{star2}} }{\sigma_1 }+\frac{v_3 \,v_{\textrm{star3}} }{\sigma_1 }\\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 ={\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 -1
+\end{array}$
+\end{matlabsymbolicoutput}
+
+
+\begin{matlabcode}
+simplify(diff(F,rho)>0,'Steps',10000)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ans = 
+
+\hskip1em $\displaystyle \frac{1}{{\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 -1}<\frac{v_1 \,v_{\textrm{star1}} +v_2 \,v_{\textrm{star2}} +v_3 \,v_{\textrm{star3}} +\sqrt{{\left({\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 -1\right)}\,{\left({\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 -1\right)}}}{{\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 -1}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+f = simplify(diff(F,rho)*(1 - norm(v)^2)<0)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+f = 
+
+\hskip1em $\displaystyle -v_1 \,v_{\textrm{star1}} -v_2 \,v_{\textrm{star2}} -v_3 \,v_{\textrm{star3}} -\sqrt{-{\left|v_1 \right|}^2 -{\left|v_2 \right|}^2 -{\left|v_3 \right|}^2 +1}\,\sqrt{-{\left|v_{\textrm{star1}} \right|}^2 -{\left|v_{\textrm{star2}} \right|}^2 -{\left|v_{\textrm{star3}} \right|}^2 +1}<-1$
+\end{matlabsymbolicoutput}
+
+\begin{par}
+\begin{flushleft}
+By Cauchy-Schwarz inequality, f is a tautology.
+\end{flushleft}
+\end{par}
+
+
+\begin{par}
+\begin{flushleft}
+Proof:
+\end{flushleft}
+\end{par}
+
+\begin{matlabcode}
+simplify(diff(F,rho,2)==0)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ans = 
+
+\hskip1em $\displaystyle \textrm{symtrue}$
+\end{matlabsymbolicoutput}
+
+
+\begin{matlabcode}
+assume(rho==0)
+assume(rho_star==0)
+assumptions
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ans = 
+
+\hskip1em $\displaystyle \left(\begin{array}{cccccccccccccccc}
+\left|v\right|<1 & \left|v_{\textrm{star}} \right|<1 & \left|v_{\textrm{star1}} \right|<1 & \left|v_{\textrm{star2}} \right|<1 & \left|v_{\textrm{star3}} \right|<1 & B\in \mathbb{R} & B_1 \in \mathbb{R} & B_2 \in \mathbb{R} & B_3 \in \mathbb{R} & B_{\textrm{star}} \in \mathbb{R} & B_{\textrm{star1}} \in \mathbb{R} & B_{\textrm{star2}} \in \mathbb{R} & B_{\textrm{star3}} \in \mathbb{R} & \sqrt{{\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 }<1 & \rho =0 & \rho_{\textrm{star}} =0
+\end{array}\right)$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+F = simplify(F)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+F = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+\frac{{{\left(B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \right)}}^2 }{2}-\frac{{{\left(B_1 \,v_1 +B_2 \,v_2 +B_3 \,v_3 \right)}}^2 }{2}-v_{\textrm{star1}} \,{\left(v_1 \,{B_2 }^2 -B_1 \,v_2 \,B_2 +v_1 \,{B_3 }^2 -B_1 \,v_3 \,B_3 -v_{\textrm{star1}} \,{B_{\textrm{star2}} }^2 +B_{\textrm{star1}} \,v_{\textrm{star2}} \,B_{\textrm{star2}} -v_{\textrm{star1}} \,{B_{\textrm{star3}} }^2 +B_{\textrm{star1}} \,v_{\textrm{star3}} \,B_{\textrm{star3}} \right)}-v_{\textrm{star2}} \,{\left(v_2 \,{B_1 }^2 -B_2 \,v_1 \,B_1 +v_2 \,{B_3 }^2 -B_2 \,v_3 \,B_3 -v_{\textrm{star2}} \,{B_{\textrm{star1}} }^2 +B_{\textrm{star2}} \,v_{\textrm{star1}} \,B_{\textrm{star1}} -v_{\textrm{star2}} \,{B_{\textrm{star3}} }^2 +B_{\textrm{star2}} \,v_{\textrm{star3}} \,B_{\textrm{star3}} \right)}-v_{\textrm{star3}} \,{\left(v_3 \,{B_1 }^2 -B_3 \,v_1 \,B_1 +v_3 \,{B_2 }^2 -B_3 \,v_2 \,B_2 -v_{\textrm{star3}} \,{B_{\textrm{star1}} }^2 +B_{\textrm{star3}} \,v_{\textrm{star1}} \,B_{\textrm{star1}} -v_{\textrm{star3}} \,{B_{\textrm{star2}} }^2 +B_{\textrm{star3}} \,v_{\textrm{star2}} \,B_{\textrm{star2}} \right)}+\frac{{\left({B_1 }^2 +{B_2 }^2 +{B_3 }^2 \right)}\,{\left({\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 +1\right)}}{2}-\frac{{\left({B_{\textrm{star1}} }^2 +{B_{\textrm{star2}} }^2 +{B_{\textrm{star3}} }^2 \right)}\,{\left({\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 +1\right)}}{2}-B_{\textrm{star1}} \,{\left(B_1 -B_{\textrm{star1}} \right)}\,\sigma_1 -B_{\textrm{star2}} \,{\left(B_2 -B_{\textrm{star2}} \right)}\,\sigma_1 -B_{\textrm{star3}} \,{\left(B_3 -B_{\textrm{star3}} \right)}\,\sigma_1 \\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 =-{\left|v_{\textrm{star1}} \right|}^2 -{\left|v_{\textrm{star2}} \right|}^2 -{\left|v_{\textrm{star3}} \right|}^2 +B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} +1
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+simplify(F>=0,10000,'IgnoreAnalyticConstraints',true)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ans = 
+
+\hskip1em $\displaystyle \begin{array}{l}
+\frac{{\left({B_{\textrm{star1}} }^2 +{B_{\textrm{star2}} }^2 +{B_{\textrm{star3}} }^2 \right)}\,{\left({\left|v_{\textrm{star1}} \right|}^2 +{\left|v_{\textrm{star2}} \right|}^2 +{\left|v_{\textrm{star3}} \right|}^2 +1\right)}}{2}\le \frac{{{\left(B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} \right)}}^2 }{2}-\frac{{{\left(B_1 \,v_1 +B_2 \,v_2 +B_3 \,v_3 \right)}}^2 }{2}-v_{\textrm{star1}} \,{\left(v_1 \,{B_2 }^2 -B_1 \,v_2 \,B_2 +v_1 \,{B_3 }^2 -B_1 \,v_3 \,B_3 -v_{\textrm{star1}} \,{B_{\textrm{star2}} }^2 +B_{\textrm{star1}} \,v_{\textrm{star2}} \,B_{\textrm{star2}} -v_{\textrm{star1}} \,{B_{\textrm{star3}} }^2 +B_{\textrm{star1}} \,v_{\textrm{star3}} \,B_{\textrm{star3}} \right)}-v_{\textrm{star2}} \,{\left(v_2 \,{B_1 }^2 -B_2 \,v_1 \,B_1 +v_2 \,{B_3 }^2 -B_2 \,v_3 \,B_3 -v_{\textrm{star2}} \,{B_{\textrm{star1}} }^2 +B_{\textrm{star2}} \,v_{\textrm{star1}} \,B_{\textrm{star1}} -v_{\textrm{star2}} \,{B_{\textrm{star3}} }^2 +B_{\textrm{star2}} \,v_{\textrm{star3}} \,B_{\textrm{star3}} \right)}-v_{\textrm{star3}} \,{\left(v_3 \,{B_1 }^2 -B_3 \,v_1 \,B_1 +v_3 \,{B_2 }^2 -B_3 \,v_2 \,B_2 -v_{\textrm{star3}} \,{B_{\textrm{star1}} }^2 +B_{\textrm{star3}} \,v_{\textrm{star1}} \,B_{\textrm{star1}} -v_{\textrm{star3}} \,{B_{\textrm{star2}} }^2 +B_{\textrm{star3}} \,v_{\textrm{star2}} \,B_{\textrm{star2}} \right)}+\frac{{\left({B_1 }^2 +{B_2 }^2 +{B_3 }^2 \right)}\,{\left({\left|v_1 \right|}^2 +{\left|v_2 \right|}^2 +{\left|v_3 \right|}^2 +1\right)}}{2}-B_{\textrm{star1}} \,{\left(B_1 -B_{\textrm{star1}} \right)}\,\sigma_1 -B_{\textrm{star2}} \,{\left(B_2 -B_{\textrm{star2}} \right)}\,\sigma_1 -B_{\textrm{star3}} \,{\left(B_3 -B_{\textrm{star3}} \right)}\,\sigma_1 \\
+\mathrm{}\\
+\textrm{where}\\
+\mathrm{}\\
+\;\;\sigma_1 =-{\left|v_{\textrm{star1}} \right|}^2 -{\left|v_{\textrm{star2}} \right|}^2 -{\left|v_{\textrm{star3}} \right|}^2 +B_{\textrm{star1}} \,v_{\textrm{star1}} +B_{\textrm{star2}} \,v_{\textrm{star2}} +B_{\textrm{star3}} \,v_{\textrm{star3}} +1
+\end{array}$
+\end{matlabsymbolicoutput}
+\begin{matlabcode}
+expand(2*F)
+\end{matlabcode}
+\begin{matlabsymbolicoutput}
+ans = 
+
+\hskip1em $\displaystyle -{B_1 }^2 \,{v_1 }^2 -2\,{B_1 }^2 \,v_2 \,v_{\textrm{star2}} -2\,{B_1 }^2 \,v_3 \,v_{\textrm{star3}} +{B_1 }^2 \,{\left|v_1 \right|}^2 +{B_1 }^2 \,{\left|v_2 \right|}^2 +{B_1 }^2 \,{\left|v_3 \right|}^2 +{B_1 }^2 -2\,B_1 \,B_2 \,v_1 \,v_2 +2\,B_1 \,B_2 \,v_1 \,v_{\textrm{star2}} +2\,B_1 \,B_2 \,v_2 \,v_{\textrm{star1}} -2\,B_1 \,B_3 \,v_1 \,v_3 +2\,B_1 \,B_3 \,v_1 \,v_{\textrm{star3}} +2\,B_1 \,B_3 \,v_3 \,v_{\textrm{star1}} -2\,B_1 \,{B_{\textrm{star1}} }^2 \,v_{\textrm{star1}} -2\,B_1 \,B_{\textrm{star1}} \,B_{\textrm{star2}} \,v_{\textrm{star2}} -2\,B_1 \,B_{\textrm{star1}} \,B_{\textrm{star3}} \,v_{\textrm{star3}} +2\,B_1 \,B_{\textrm{star1}} \,{\left|v_{\textrm{star1}} \right|}^2 +2\,B_1 \,B_{\textrm{star1}} \,{\left|v_{\textrm{star2}} \right|}^2 +2\,B_1 \,B_{\textrm{star1}} \,{\left|v_{\textrm{star3}} \right|}^2 -2\,B_1 \,B_{\textrm{star1}} -2\,{B_2 }^2 \,v_1 \,v_{\textrm{star1}} -{B_2 }^2 \,{v_2 }^2 -2\,{B_2 }^2 \,v_3 \,v_{\textrm{star3}} +{B_2 }^2 \,{\left|v_1 \right|}^2 +{B_2 }^2 \,{\left|v_2 \right|}^2 +{B_2 }^2 \,{\left|v_3 \right|}^2 +{B_2 }^2 -2\,B_2 \,B_3 \,v_2 \,v_3 +2\,B_2 \,B_3 \,v_2 \,v_{\textrm{star3}} +2\,B_2 \,B_3 \,v_3 \,v_{\textrm{star2}} -2\,B_2 \,B_{\textrm{star1}} \,B_{\textrm{star2}} \,v_{\textrm{star1}} -2\,B_2 \,{B_{\textrm{star2}} }^2 \,v_{\textrm{star2}} -2\,B_2 \,B_{\textrm{star2}} \,B_{\textrm{star3}} \,v_{\textrm{star3}} +2\,B_2 \,B_{\textrm{star2}} \,{\left|v_{\textrm{star1}} \right|}^2 +2\,B_2 \,B_{\textrm{star2}} \,{\left|v_{\textrm{star2}} \right|}^2 +2\,B_2 \,B_{\textrm{star2}} \,{\left|v_{\textrm{star3}} \right|}^2 -2\,B_2 \,B_{\textrm{star2}} -2\,{B_3 }^2 \,v_1 \,v_{\textrm{star1}} -2\,{B_3 }^2 \,v_2 \,v_{\textrm{star2}} -{B_3 }^2 \,{v_3 }^2 +{B_3 }^2 \,{\left|v_1 \right|}^2 +{B_3 }^2 \,{\left|v_2 \right|}^2 +{B_3 }^2 \,{\left|v_3 \right|}^2 +{B_3 }^2 -2\,B_3 \,B_{\textrm{star1}} \,B_{\textrm{star3}} \,v_{\textrm{star1}} -2\,B_3 \,B_{\textrm{star2}} \,B_{\textrm{star3}} \,v_{\textrm{star2}} -2\,B_3 \,{B_{\textrm{star3}} }^2 \,v_{\textrm{star3}} +2\,B_3 \,B_{\textrm{star3}} \,{\left|v_{\textrm{star1}} \right|}^2 +2\,B_3 \,B_{\textrm{star3}} \,{\left|v_{\textrm{star2}} \right|}^2 +2\,B_3 \,B_{\textrm{star3}} \,{\left|v_{\textrm{star3}} \right|}^2 -2\,B_3 \,B_{\textrm{star3}} +2\,{B_{\textrm{star1}} }^3 \,v_{\textrm{star1}} +2\,{B_{\textrm{star1}} }^2 \,B_{\textrm{star2}} \,v_{\textrm{star2}} +2\,{B_{\textrm{star1}} }^2 \,B_{\textrm{star3}} \,v_{\textrm{star3}} +{B_{\textrm{star1}} }^2 \,{v_{\textrm{star1}} }^2 +2\,{B_{\textrm{star1}} }^2 \,{v_{\textrm{star2}} }^2 +2\,{B_{\textrm{star1}} }^2 \,{v_{\textrm{star3}} }^2 -3\,{B_{\textrm{star1}} }^2 \,{\left|v_{\textrm{star1}} \right|}^2 -3\,{B_{\textrm{star1}} }^2 \,{\left|v_{\textrm{star2}} \right|}^2 -3\,{B_{\textrm{star1}} }^2 \,{\left|v_{\textrm{star3}} \right|}^2 +{B_{\textrm{star1}} }^2 +2\,B_{\textrm{star1}} \,{B_{\textrm{star2}} }^2 \,v_{\textrm{star1}} -2\,B_{\textrm{star1}} \,B_{\textrm{star2}} \,v_{\textrm{star1}} \,v_{\textrm{star2}} +2\,B_{\textrm{star1}} \,{B_{\textrm{star3}} }^2 \,v_{\textrm{star1}} -2\,B_{\textrm{star1}} \,B_{\textrm{star3}} \,v_{\textrm{star1}} \,v_{\textrm{star3}} +2\,{B_{\textrm{star2}} }^3 \,v_{\textrm{star2}} +2\,{B_{\textrm{star2}} }^2 \,B_{\textrm{star3}} \,v_{\textrm{star3}} +2\,{B_{\textrm{star2}} }^2 \,{v_{\textrm{star1}} }^2 +{B_{\textrm{star2}} }^2 \,{v_{\textrm{star2}} }^2 +2\,{B_{\textrm{star2}} }^2 \,{v_{\textrm{star3}} }^2 -3\,{B_{\textrm{star2}} }^2 \,{\left|v_{\textrm{star1}} \right|}^2 -3\,{B_{\textrm{star2}} }^2 \,{\left|v_{\textrm{star2}} \right|}^2 -3\,{B_{\textrm{star2}} }^2 \,{\left|v_{\textrm{star3}} \right|}^2 +{B_{\textrm{star2}} }^2 +2\,B_{\textrm{star2}} \,{B_{\textrm{star3}} }^2 \,v_{\textrm{star2}} -2\,B_{\textrm{star2}} \,B_{\textrm{star3}} \,v_{\textrm{star2}} \,v_{\textrm{star3}} +2\,{B_{\textrm{star3}} }^3 \,v_{\textrm{star3}} +2\,{B_{\textrm{star3}} }^2 \,{v_{\textrm{star1}} }^2 +2\,{B_{\textrm{star3}} }^2 \,{v_{\textrm{star2}} }^2 +{B_{\textrm{star3}} }^2 \,{v_{\textrm{star3}} }^2 -3\,{B_{\textrm{star3}} }^2 \,{\left|v_{\textrm{star1}} \right|}^2 -3\,{B_{\textrm{star3}} }^2 \,{\left|v_{\textrm{star2}} \right|}^2 -3\,{B_{\textrm{star3}} }^2 \,{\left|v_{\textrm{star3}} \right|}^2 +{B_{\textrm{star3}} }^2 $
+\end{matlabsymbolicoutput}
+
+\begin{par}
+\begin{flushleft}
+Notice that rho, therefore E, has nothing to do with the inequality:
+\end{flushleft}
+\end{par}
+
+\end{document}
